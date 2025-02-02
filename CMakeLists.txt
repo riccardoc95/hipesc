@@ -6,6 +6,7 @@ find_package(MPI REQUIRED)
 
 # Include directories
 include_directories(${MPI_INCLUDE_PATH})
+include_directories(abpoa)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -18,7 +19,11 @@ add_executable(hipes main.cpp
         jobs.h
         mpi_main.cpp
         Correction.cpp
-        Correction.h)
+        Correction.h
+        edlib.h
+        edlib.cpp
+        abpoa/abpoa.c
+        abpoa/abpoa.h)
 
 # Link MPI libraries
 target_link_libraries(hipes ${MPI_LIBRARIES})

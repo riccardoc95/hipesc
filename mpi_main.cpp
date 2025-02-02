@@ -33,7 +33,8 @@ int main(int argc, char** argv) {
     for (size_t i = world_rank; i < num_jobs; i += world_size) {
         std::cout << "Process " << world_rank << " processing job " << i + 1 << " of " << num_jobs << std::endl;
         auto job = jobs.get(job_list[i]);
-        print_job(job);
+        //print_job(job);
+        std::cout << correction(job) << std::endl;
     }
 
     MPI_Finalize();

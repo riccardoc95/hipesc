@@ -11,7 +11,8 @@
 
 // Function declaration
 void print_job(const std::vector<std::pair<std::string, std::string>>& job);
-void align_and_process_windows(const std::vector<std::pair<std::string, std::string>>& job);
+std::string run_msa(const std::vector<std::string>& sequences);
+std::string correction(const std::vector<std::pair<std::string, std::string>>& job);
 
 
 
