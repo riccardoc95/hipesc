@@ -5,6 +5,10 @@
 #include "correction.h"
 
 
-std::string correction(std::vector<std::pair<std::string, std::string>> data) {
-    return "";
+std::string correction(std::string& query, std::vector<Overlap>& targets, const std::string& method) {
+    if (method == "default") {
+        return "";
+    }else {
+        return "";
+    }
 }
