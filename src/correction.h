@@ -8,6 +8,14 @@
 #include <string>
 #include <vector>
 
-std::string correction(std::vector<std::pair<std::string, std::string>> data);
+struct Overlap {
+    std::string target;
+    size_t query_start;
+    size_t query_end;
+    size_t target_start;
+    size_t target_end;
+};
+
+std::string correction(std::string& query, std::vector<Overlap>& targets, const std::string& method);
 
 #endif //CORRECTION_H
