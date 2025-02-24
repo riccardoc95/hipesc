@@ -156,8 +156,8 @@ int main(int argc, char *argv[]) {
                     size_t query_length = snd;
                     query = decompress_zstd(query, query_length);
 
-                    std::vector<std::pair<std::string, std::string>> data;
-                    data.clear();
+                    std::vector<Overlap> targets;
+                    targets.clear();
                     for (const auto&[target_name, query_start, query_end, target_start, target_end] : job.jobs) {
                         std::string target = target_name;
 
@@ -165,11 +165,16 @@ int main(int argc, char *argv[]) {
                         target = fst;
                         size_t target_length = snd;
                         target = decompress_zstd(target, target_length);
-                        data.push_back(make_pair(query.substr(query_start, query_end - query_start),
-                                                 target.substr(target_start, target_end - target_start)));
+                        targets.push_back({
+                            target.substr(target_start, target_end - target_start),
+                            query_start,
+                            query_end,
+                            target_start,
+                            target_end});
 
-                        correction(data);
+
                     }
+                    correction(query,targets, "default");
 
                 } else if (done_reading) {
                     omp_unset_lock(&lock);
