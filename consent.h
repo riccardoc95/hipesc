@@ -1,6 +1,6 @@
 #include <iostream>
 #include <unordered_map>
-#include "robin_hood_b.h"
+#include "robin_hood.h"
 #include <algorithm>
 #include <mutex>
 #include <limits>
