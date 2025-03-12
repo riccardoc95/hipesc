@@ -285,7 +285,7 @@ int main(int argc, char *argv[]) {
             while(true){
                 omp_set_lock(&lock);
                 if (!jobs.empty()) {
-                    Job job = std::move(jobs.back());
+                    Job job = jobs.back();
                     //cout << "Thread: " << omp_get_thread_num() << " JOB: " << job.query_name << endl;
                     jobs.pop_back();
                     omp_unset_lock(&lock);
