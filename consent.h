@@ -1831,10 +1831,10 @@ std::string consent_correction(std::string template_read, std::vector<Overlap> a
 
 
 
-    std::cout << "Finestre di allineamento:" << std::endl;
-    for (const auto& window : pilesPos) {
-        std::cout << "[" << window.first << ", " << window.second << "]" << std::endl;
-    }
+    //std::cout << "Finestre di allineamento:" << std::endl;
+    //for (const auto& window : pilesPos) {
+    //    std::cout << "[" << window.first << ", " << window.second << "]" << std::endl;
+    //}
 
     unsigned i = 0;
     unsigned merSize=9;
