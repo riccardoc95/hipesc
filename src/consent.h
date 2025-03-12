@@ -15,10 +15,11 @@
 #include <atomic>
 #include <math.h>
 #include <cmath>
+#include <cstdint>
 
 #include "correction.h"
 
-#include "spoa/spoa.hpp"
+#include "lib/spoa/spoa.hpp"
 #include "lib/Striped-Smith-Waterman-Library/src/ssw_cpp.h"
 
 typedef uint32_t kmer;
