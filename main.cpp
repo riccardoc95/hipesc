@@ -300,7 +300,7 @@ int main(int argc, char *argv[]) {
 
 
                     vector<Overlap> overlaps;
-                    //overlaps.clear();
+                    overlaps.clear();
                     // Iterate over targets within each job
                     for (const auto& target_list : job.jobs) {
                         string target = target_list.target_name;
