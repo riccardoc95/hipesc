@@ -314,7 +314,7 @@ int main(int argc, char *argv[]) {
                         overlaps.push_back({target, target_list.query_start, target_list.query_end, target_list.target_start, target_list.target_end, target_list.strand});
                     }
 
-                    //consent_correction(query, overlaps);
+                    consent_correction(query, overlaps);
 
 
                 } else if (done_reading) {
