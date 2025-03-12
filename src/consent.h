@@ -16,6 +16,8 @@
 #include <math.h>
 #include <cmath>
 
+#include <correction.h>
+
 #include "spoa/spoa.hpp"
 #include "Complete-Striped-Smith-Waterman-Library/src/ssw_cpp.h"
 
@@ -177,23 +179,6 @@ protected:
 private:
     static char complement[int('t') + 1];
 };
-
-class OverlapConsent {
-public:
-    std::string header;
-    std::string sequence;
-    unsigned qstart;
-    unsigned qend;
-    unsigned tstart;
-    unsigned tend;
-    std::string strand;
-
-
-
-    OverlapConsent(std::string h, std::string seq, unsigned query_start, unsigned query_end,unsigned target_start, unsigned target_end,std::string s)
-            : header(h), sequence(seq), qstart(query_start), qend(query_end), tstart(target_start), tend(target_end), strand(s) {}
-};
-
 
 
 
@@ -1240,14 +1225,14 @@ bool dropRead(std::string correctedRead) {
     return (float) nbCorBases(correctedRead) / correctedRead.length() < 0.1;
 }
 
-unsigned* getCoverages(std::string template_read, std::vector<OverlapConsent> alignments) {
+unsigned* getCoverages(std::string template_read, std::vector<Overlap> alignments) {
     unsigned tplLen = template_read.length();
     unsigned* coverages = (unsigned*) calloc(tplLen, sizeof(int));
     unsigned beg, end;
     unsigned i;
     for (OverlapConsent ovlp : alignments) {
-        beg=ovlp.qstart;
-        end=ovlp.qend;
+        beg=ovlp.query_start;
+        end=ovlp.query_end;
 
         for(i=beg;i<=end;i++){
             coverages[i]++;
@@ -1258,7 +1243,7 @@ unsigned* getCoverages(std::string template_read, std::vector<OverlapConsent> al
 }
 
 
-std::vector<std::pair<unsigned,unsigned >> getAlignmentWindowsPositions(std::string template_read, std::vector<OverlapConsent> alignments, unsigned minSupport,  unsigned windowSize, int overlappingWindows) {
+std::vector<std::pair<unsigned,unsigned >> getAlignmentWindowsPositions(std::string template_read, std::vector<Overlap> alignments, unsigned minSupport,  unsigned windowSize, int overlappingWindows) {
     unsigned* coverages = getCoverages(template_read,alignments);
     unsigned i;
     unsigned beg = 0;
@@ -1319,7 +1304,7 @@ std::vector<std::pair<unsigned,unsigned >> getAlignmentWindowsPositions(std::str
     return pilesPos;
 }
 
-std::vector<std::string> getAlignmentWindowsSequences(std::string template_read,std::vector<OverlapConsent> alignments,  unsigned qBeg, unsigned end, unsigned merSize) {
+std::vector<std::string> getAlignmentWindowsSequences(std::string template_read,std::vector<Overlap> alignments,  unsigned qBeg, unsigned end, unsigned merSize) {
     std::vector<std::string> curPile;
     std::vector<unsigned> curScore;
     unsigned length, shift;
@@ -1340,29 +1325,29 @@ std::vector<std::string> getAlignmentWindowsSequences(std::string template_read,
 
 
     for(const auto overlap:alignments){
-        tBeg = overlap.tstart;
-        tEnd = overlap.tend;
+        tBeg = overlap.target_start;
+        tEnd = overlap.target_end;
         length = end - qBeg + 1;
-        if (qBeg > overlap.qstart) {
-            shift = qBeg - overlap.qstart;
+        if (qBeg > overlap.query_start) {
+            shift = qBeg - overlap.query_start;
         } else {
             shift = 0;
         }
 
         // For all alignments than span, or begin/end in the query window
-        if ( ((overlap.qstart <= qBeg and overlap.qend > qBeg) or (end <= overlap.qend and overlap.qstart < end)) and overlap.tstart + shift <= overlap.tend) {
+        if ( ((overlap.query_start <= qBeg and overlap.query_end > qBeg) or (end <= overlap.query_end and overlap.query_start < end)) and overlap.target_start + shift <= overlap.target_end) {
 
-            if (qBeg < overlap.qstart and overlap.qend < end) {
+            if (qBeg < overlap.query_start and overlap.query_end < end) {
                 shift = 0;
-                tBeg = std::max(0, (int) overlap.tstart - ((int) overlap.qstart - (int) qBeg));
-                tEnd = std::min((int) overlap.sequence.length() - 1, (int) overlap.tend + ((int) end - (int) overlap.qend));
+                tBeg = std::max(0, (int) overlap.target_start - ((int) overlap.query_start - (int) qBeg));
+                tEnd = std::min((int) overlap.sequence.length() - 1, (int) overlap.target_end + ((int) end - (int) overlap.query_end));
                 length = tEnd - tBeg + 1;
-            } else if (qBeg < overlap.qstart) {
+            } else if (qBeg < overlap.query_start) {
                 shift = 0;
-                tBeg = std::max(0, (int) overlap.tstart - ((int) overlap.qstart - (int) qBeg));
+                tBeg = std::max(0, (int) overlap.target_start - ((int) overlap.query_start - (int) qBeg));
                 length = std::min((int) length, std::min((int) overlap.sequence.length() - 1, (int) tBeg + (int) length - 1) - (int) tBeg + 1);
-            } else if (overlap.qend < end) {
-                tEnd = std::min((int) overlap.sequence.length() - 1, (int) overlap.tend + ((int) end - (int) overlap.qend));
+            } else if (overlap.query_end < end) {
+                tEnd = std::min((int) overlap.sequence.length() - 1, (int) overlap.target_end + ((int) end - (int) overlap.query_end));
                 length = std::min((int) length, (int) tEnd - std::max(0, (int) tEnd - (int) length + 1) + 1);
             }
 
