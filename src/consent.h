@@ -19,7 +19,7 @@
 #include "correction.h"
 
 #include "spoa/spoa.hpp"
-#include "Complete-Striped-Smith-Waterman-Library/src/ssw_cpp.h"
+#include "lib/Striped-Smith-Waterman-Library/src/ssw_cpp.h"
 
 typedef uint32_t kmer;
 
