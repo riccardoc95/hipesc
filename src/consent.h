@@ -178,7 +178,7 @@ private:
     static char complement[int('t') + 1];
 };
 
-class Overlap {
+class OverlapConsent {
 public:
     std::string header;
     std::string sequence;
@@ -190,7 +190,7 @@ public:
 
 
 
-    Overlap(std::string h, std::string seq, unsigned query_start, unsigned query_end,unsigned target_start, unsigned target_end,std::string s)
+    OverlapConsent(std::string h, std::string seq, unsigned query_start, unsigned query_end,unsigned target_start, unsigned target_end,std::string s)
             : header(h), sequence(seq), qstart(query_start), qend(query_end), tstart(target_start), tend(target_end), strand(s) {}
 };
 
@@ -1240,12 +1240,12 @@ bool dropRead(std::string correctedRead) {
     return (float) nbCorBases(correctedRead) / correctedRead.length() < 0.1;
 }
 
-unsigned* getCoverages(std::string template_read, std::vector<Overlap> alignments) {
+unsigned* getCoverages(std::string template_read, std::vector<OverlapConsent> alignments) {
     unsigned tplLen = template_read.length();
     unsigned* coverages = (unsigned*) calloc(tplLen, sizeof(int));
     unsigned beg, end;
     unsigned i;
-    for (Overlap ovlp : alignments) {
+    for (OverlapConsent ovlp : alignments) {
         beg=ovlp.qstart;
         end=ovlp.qend;
 
@@ -1258,7 +1258,7 @@ unsigned* getCoverages(std::string template_read, std::vector<Overlap> alignment
 }
 
 
-std::vector<std::pair<unsigned,unsigned >> getAlignmentWindowsPositions(std::string template_read, std::vector<Overlap> alignments, unsigned minSupport,  unsigned windowSize, int overlappingWindows) {
+std::vector<std::pair<unsigned,unsigned >> getAlignmentWindowsPositions(std::string template_read, std::vector<OverlapConsent> alignments, unsigned minSupport,  unsigned windowSize, int overlappingWindows) {
     unsigned* coverages = getCoverages(template_read,alignments);
     unsigned i;
     unsigned beg = 0;
@@ -1319,7 +1319,7 @@ std::vector<std::pair<unsigned,unsigned >> getAlignmentWindowsPositions(std::str
     return pilesPos;
 }
 
-std::vector<std::string> getAlignmentWindowsSequences(std::string template_read,std::vector<Overlap> alignments,  unsigned qBeg, unsigned end, unsigned merSize) {
+std::vector<std::string> getAlignmentWindowsSequences(std::string template_read,std::vector<OverlapConsent> alignments,  unsigned qBeg, unsigned end, unsigned merSize) {
     std::vector<std::string> curPile;
     std::vector<unsigned> curScore;
     unsigned length, shift;
@@ -1822,7 +1822,9 @@ std::pair<std::string, robin_hood::unordered_map<kmer, unsigned>> computeConsens
 }
 
 int consent_correction(std::string& template_read, std::vector<Overlap>& alignments) {
-    unsigned minSupport=0;
+    
+    
+    unsigned minSupport=4;
     unsigned minAnchors=2;
     unsigned solidThresh=2;
     unsigned windowSize=500;
