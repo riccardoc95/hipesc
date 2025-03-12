@@ -19,8 +19,8 @@
 
 #include "correction.h"
 
-#include "lib/spoa/spoa.hpp"
-#include "lib/Striped-Smith-Waterman-Library/src/ssw_cpp.h"
+#include "spoa.hpp"
+#include "ssw_cpp.h"
 
 typedef uint32_t kmer;
 
