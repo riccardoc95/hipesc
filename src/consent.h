@@ -16,7 +16,7 @@
 #include <math.h>
 #include <cmath>
 
-#include <correction.h>
+#include "correction.h"
 
 #include "spoa/spoa.hpp"
 #include "Complete-Striped-Smith-Waterman-Library/src/ssw_cpp.h"
