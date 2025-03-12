@@ -7,7 +7,7 @@
 
 #include <string>
 #include <vector>
-
+#include <sys/resource.h>
 
 struct Target {
     std::string target_name;
