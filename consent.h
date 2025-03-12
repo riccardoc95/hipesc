@@ -1226,14 +1226,23 @@ bool dropRead(std::string correctedRead) {
     return (float) nbCorBases(correctedRead) / correctedRead.length() < 0.1;
 }
 
-unsigned* getCoverages(std::string template_read, std::vector<Overlap> alignments) {
+std::vector<unsigned> getCoverages(const std::string& template_read, const std::vector<Overlap>& alignments) {
     unsigned tplLen = template_read.length();
-    unsigned* coverages = (unsigned*) calloc(tplLen, sizeof(int));
-    unsigned beg, end;
-    unsigned i;
+    std::vector<unsigned> coverages(tplLen, 0);  // Use vector instead of raw array
 
+    for (const Overlap& ovlp : alignments) {
+        unsigned beg = ovlp.query_start;
+        unsigned end = ovlp.query_end;
 
-    return coverages;
+        if (beg >= tplLen) continue;  // Skip if out of bounds
+        if (end >= tplLen) end = tplLen - 1;  // Prevent overflow
+
+        for (unsigned i = beg; i <= end; i++) {
+            coverages[i]++;
+        }
+    }
+
+    return coverages;  // Vector manages memory safely
 }
 
 
