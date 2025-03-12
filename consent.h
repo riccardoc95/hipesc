@@ -1300,8 +1300,8 @@ std::vector<std::pair<unsigned,unsigned >> getAlignmentWindowsPositions(std::str
     }
 
     // delete [] coverages;
-    free(coverages);
-    coverages = NULL;
+    //free(coverages);
+    //coverages = NULL;
 
     return pilesPos;
 }
