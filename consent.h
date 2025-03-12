@@ -32,11 +32,11 @@ struct localisation {
 //TODO REMOVE HASHTABLES
 
 using namespace std;
-using uint = unsigned int;
+using uint = size_t int;
 
 
 using namespace std;
-typedef unsigned int uint;
+typedef size_t int uint;
 
 
 
@@ -197,8 +197,8 @@ typedef robin_hood::unordered_map<kmer,vector<localisation>> kmer2localisation;
 
 
 
-void fill_index_kmers(const vector<string>& Reads,kmer2localisation& kmer_index,uint32_t kmer_size, robin_hood::unordered_map<kmer, unsigned>& merCounts, unsigned solidThresh){
-    robin_hood::unordered_map<kmer, unsigned> tmpMerCounts;
+void fill_index_kmers(const vector<string>& Reads,kmer2localisation& kmer_index,uint32_t kmer_size, robin_hood::unordered_map<kmer, size_t>& merCounts, size_t solidThresh){
+    robin_hood::unordered_map<kmer, size_t> tmpMerCounts;
     string read;
     uint32_t offsetUpdateKmer=1<<(2*kmer_size);
     robin_hood::unordered_map<kmer,bool> repeated_kmer;
@@ -739,7 +739,7 @@ void absoluteMAJ_consensus(vector<string>& V){
     //~ V={V[best_occ]};
 }
 
-vector<string> consensus_SPOA( vector<string>& W, unsigned maxMSA, string path) {
+vector<string> consensus_SPOA( vector<string>& W, size_t maxMSA, string path) {
     auto alignment_engine = spoa::AlignmentEngine::Create(
             spoa::AlignmentType::kNW, 3, -5, -3);
     //spoa::createAlignmentEngine(static_cast<spoa::AlignmentType>(0), 5, -10, -4, -4);
@@ -759,7 +759,7 @@ vector<string> consensus_SPOA( vector<string>& W, unsigned maxMSA, string path) 
 
 
 
-vector<string> easy_consensus(vector<string> V, unsigned maxMSA, string path){
+vector<string> easy_consensus(vector<string> V, size_t maxMSA, string path){
     uint32_t non_empty(0);
     //~ absoluteMAJ_consensus(V);
     if(V.size()==1){
@@ -869,7 +869,7 @@ std::string concatNucR(std::string f, int i) {
     }
 }
 
-std::vector<std::string> getNeighbours(std::string kMer, unsigned merSize, int left, robin_hood::unordered_map<kmer, unsigned> merCounts, unsigned solidThresh) {
+std::vector<std::string> getNeighbours(std::string kMer, size_t merSize, int left, robin_hood::unordered_map<kmer, size_t> merCounts, size_t solidThresh) {
     std::vector<std::string> neighbours;
     std::string f, n, t = "";
     kmer k;
@@ -907,10 +907,10 @@ std::vector<std::string> getNeighbours(std::string kMer, unsigned merSize, int l
     return neighbours;
 }
 
-unsigned extendLeft(robin_hood::unordered_map<kmer, unsigned> merCounts, unsigned curK, unsigned extLen, string &LR, unsigned solidThresh) {
+size_t extendLeft(robin_hood::unordered_map<kmer, size_t> merCounts, size_t curK, size_t extLen, string &LR, size_t solidThresh) {
     vector<string> neighbours;
     vector<string>::iterator it;
-    unsigned dist = 0;
+    size_t dist = 0;
 
     // Get the leftmost k-mer and search for a path in the graph
     neighbours = getNeighbours(LR.substr(0, curK), curK, 1, merCounts, solidThresh);
@@ -928,10 +928,10 @@ unsigned extendLeft(robin_hood::unordered_map<kmer, unsigned> merCounts, unsigne
     return dist;
 }
 
-unsigned extendRight(robin_hood::unordered_map<kmer, unsigned> merCounts, unsigned curK, unsigned extLen, string &LR, unsigned solidThresh) {
+size_t extendRight(robin_hood::unordered_map<kmer, size_t> merCounts, size_t curK, size_t extLen, string &LR, size_t solidThresh) {
     vector<string> neighbours;
     vector<string>::iterator it;
-    unsigned dist = 0;
+    size_t dist = 0;
 
     // Get the leftmost k-mer and search for a path in the graph
     neighbours = getNeighbours(LR.substr(LR.length() - curK), curK, 0, merCounts, solidThresh);
@@ -950,7 +950,7 @@ unsigned extendRight(robin_hood::unordered_map<kmer, unsigned> merCounts, unsign
 }
 
 
-int link(robin_hood::unordered_map<kmer, unsigned> merCounts, std::string srcSeed, std::string tgtSeed, unsigned curK, std::set<std::string> &visited, unsigned* curBranches, unsigned dist, std::string curExt, std::string &missingPart, unsigned merSize, unsigned LRLen, unsigned maxBranches, unsigned solidThresh, unsigned minOrder) {
+int link(robin_hood::unordered_map<kmer, size_t> merCounts, std::string srcSeed, std::string tgtSeed, size_t curK, std::set<std::string> &visited, size_t* curBranches, size_t dist, std::string curExt, std::string &missingPart, size_t merSize, size_t LRLen, size_t maxBranches, size_t solidThresh, size_t minOrder) {
     if (curK < minOrder || *curBranches > maxBranches || dist > LRLen) {
         missingPart = std::string();
         return 0;
@@ -1023,7 +1023,7 @@ int link(robin_hood::unordered_map<kmer, unsigned> merCounts, std::string srcSee
 }
 
 
-vector<vector<string>> global_consensus(const  vector<vector<string>>& V, uint32_t n, unsigned maxMSA, string path){
+vector<vector<string>> global_consensus(const  vector<vector<string>>& V, uint32_t n, size_t maxMSA, string path){
     vector<vector<string>> result;
     string stacked_consensus;
     for(uint32_t iV(0);iV<V.size();++iV){
@@ -1059,7 +1059,7 @@ vector<vector<string>> global_consensus(const  vector<vector<string>>& V, uint32
 
 
 
-std::pair<std::vector<std::vector<std::string>>, robin_hood::unordered_map<kmer, unsigned>> MSABMAAC(const vector<string>& Reads,uint32_t k, double edge_solidity, unsigned solidThresh, unsigned minAnchors, unsigned maxMSA, string path){
+std::pair<std::vector<std::vector<std::string>>, robin_hood::unordered_map<kmer, size_t>> MSABMAAC(const vector<string>& Reads,uint32_t k, double edge_solidity, size_t solidThresh, size_t minAnchors, size_t maxMSA, string path){
     int kmer_size(k);
     //~ vector<string> VTest;;
     //~ VTest.push_back("CTGACTGACCCCGTACGTCA");
@@ -1085,7 +1085,7 @@ std::pair<std::vector<std::vector<std::string>>, robin_hood::unordered_map<kmer,
 
 
     kmer2localisation kmer_index;
-    robin_hood::unordered_map<kmer, unsigned> merCounts;
+    robin_hood::unordered_map<kmer, size_t> merCounts;
     // std::cerr << "1" << std::endl;
     fill_index_kmers(Reads,kmer_index,kmer_size,merCounts, solidThresh);
     // std::cerr << "ok" << std::endl;
@@ -1177,9 +1177,9 @@ std::string toLowerCase(std::string& s, int beg, int end) {
     return res;
 }
 
-std::string trimRead(std::string correctedRead, unsigned merSize) {
-    unsigned beg, end, n;
-    unsigned i;
+std::string trimRead(std::string correctedRead, size_t merSize) {
+    size_t beg, end, n;
+    size_t i;
     i = 0;
     n = 0;
     while (i < correctedRead.length() and n < merSize) {
@@ -1213,7 +1213,7 @@ std::string trimRead(std::string correctedRead, unsigned merSize) {
 
 int nbCorBases(std::string correctedRead) {
     int n = 0;
-    for (unsigned i = 0; i < correctedRead.length(); i++) {
+    for (size_t i = 0; i < correctedRead.length(); i++) {
         if ('A' <= correctedRead[i] && correctedRead[i] <= 'Z') {
             n++;
         }
@@ -1226,11 +1226,11 @@ bool dropRead(std::string correctedRead) {
     return (float) nbCorBases(correctedRead) / correctedRead.length() < 0.1;
 }
 
-unsigned* getCoverages(std::string template_read, std::vector<Overlap> alignments) {
-    unsigned tplLen = template_read.length();
-    unsigned* coverages = (unsigned*) calloc(tplLen, sizeof(int));
-    unsigned beg, end;
-    unsigned i;
+size_t* getCoverages(std::string template_read, std::vector<Overlap> alignments) {
+    size_t tplLen = template_read.length();
+    size_t* coverages = (size_t*) calloc(tplLen, sizeof(int));
+    size_t beg, end;
+    size_t i;
     for (Overlap ovlp : alignments) {
         beg=ovlp.query_start;
         end=ovlp.query_end;
@@ -1244,20 +1244,60 @@ unsigned* getCoverages(std::string template_read, std::vector<Overlap> alignment
 }
 
 
-std::vector<std::pair<unsigned,unsigned >> getAlignmentWindowsPositions(std::string template_read, std::vector<Overlap> alignments, unsigned minSupport,  unsigned windowSize, int overlappingWindows) {
-    unsigned* coverages = getCoverages(template_read,alignments);
-    unsigned i;
-    unsigned beg = 0;
-    unsigned tplen=template_read.length();
-    unsigned end = tplen - 1;
+std::vector<std::pair<size_t,size_t >> getAlignmentWindowsPositions(std::string template_read, std::vector<Overlap> alignments, size_t minSupport,  size_t windowSize, int overlappingWindows) {
+    size_t* coverages = getCoverages(template_read,alignments);
+    size_t i;
+    size_t beg = 0;
+    size_t tplen=template_read.length();
+    size_t end = tplen - 1;
 
-    std::vector<std::pair<unsigned, unsigned>> pilesPos;
-    unsigned curLen = 0;
+    std::vector<std::pair<size_t, size_t>> pilesPos;
+    size_t curLen = 0;
     beg = 0;
     end = 0;
     i = 0;
 
+    while (i < tplen) {
+        if (curLen >= windowSize) {
+            pilesPos.push_back(std::make_pair(beg, beg + curLen - 1));
+            if (overlappingWindows) {
+                i = i - overlappingWindows;
+            }
+            beg = i;
+            curLen = 0;
+        }
+        if (coverages[i] < minSupport) {
+            curLen = 0;
+            i++;
+            beg = i;
+        } else {
+            curLen++;
+            i++;
+        }
+    }
 
+    // Special case for the last window
+    int pushed = 0;
+    beg = 0;
+    end = tplen - 1;
+    curLen = 0;
+    i = tplen - 1;
+    while (i > 0 and !pushed) {
+        if (curLen >= windowSize) {
+            pilesPos.push_back(std::make_pair(end - curLen + 1, end));
+            pushed = 1;
+            end = i;
+            curLen = 0;
+        }
+        if (coverages[i] < minSupport) {
+            curLen = 0;
+            i--;
+            end = i;
+        } else {
+            curLen++;
+            i--;
+        }
+    }
 
     // delete [] coverages;
     free(coverages);
@@ -1266,13 +1306,13 @@ std::vector<std::pair<unsigned,unsigned >> getAlignmentWindowsPositions(std::str
     return pilesPos;
 }
 
-std::vector<std::string> getAlignmentWindowsSequences(std::string template_read,std::vector<Overlap> alignments,  unsigned qBeg, unsigned end, unsigned merSize) {
+std::vector<std::string> getAlignmentWindowsSequences(std::string template_read,std::vector<Overlap> alignments,  size_t qBeg, size_t end, size_t merSize) {
     std::vector<std::string> curPile;
-    std::vector<unsigned> curScore;
-    unsigned length, shift;
+    std::vector<size_t> curScore;
+    size_t length, shift;
     length = end - qBeg + 1;
-    unsigned curPos = 0;
-    unsigned tBeg, tEnd;
+    size_t curPos = 0;
+    size_t tBeg, tEnd;
 
     if (qBeg + length - 1 >= template_read.length()) {
         return curPile;
@@ -1348,12 +1388,12 @@ std::string rev_comp::run(std::string seq) {
     while(true) {
         if(first == last || first == --last) {
             if(seq.length() % 2) {
-                *first = rev_comp::complement[(unsigned char) *first];
+                *first = rev_comp::complement[(size_t char) *first];
             }
             return seq;
         } else {
-            *first = rev_comp::complement[(unsigned char) *first];
-            *last = rev_comp::complement[(unsigned char) *last];
+            *first = rev_comp::complement[(size_t char) *first];
+            *last = rev_comp::complement[(size_t char) *last];
             std::iter_swap(first, last);
             ++first;
         }
@@ -1381,19 +1421,19 @@ rev_comp::~rev_comp(){
 
 }
 
-robin_hood::unordered_map<std::string, std::vector<unsigned>> getKMersPos(std::string sequence, unsigned merSize) {
-    robin_hood::unordered_map<std::string, std::vector<unsigned>> mers;
+robin_hood::unordered_map<std::string, std::vector<size_t>> getKMersPos(std::string sequence, size_t merSize) {
+    robin_hood::unordered_map<std::string, std::vector<size_t>> mers;
 
-    for (unsigned i = 0; i < sequence.length() - merSize + 1; i++) {
+    for (size_t i = 0; i < sequence.length() - merSize + 1; i++) {
         mers[sequence.substr(i, merSize)].push_back(i);
     }
 
     return mers;
 }
 
-int getNextSrc(std::string correctedRead, unsigned beg, unsigned merSize) {
-    unsigned nb = 0;
-    unsigned i = beg;
+int getNextSrc(std::string correctedRead, size_t beg, size_t merSize) {
+    size_t nb = 0;
+    size_t i = beg;
 
     while (i < correctedRead.length() and (isUpperCase(correctedRead[i]) or nb < merSize)) {
         if (isUpperCase(correctedRead[i])) {
@@ -1407,9 +1447,9 @@ int getNextSrc(std::string correctedRead, unsigned beg, unsigned merSize) {
     return nb >= merSize ? i - 1 : -1;
 }
 
-int getNextDst(std::string correctedRead, unsigned beg, unsigned merSize) {
-    unsigned nb = 0;
-    unsigned i = beg;
+int getNextDst(std::string correctedRead, size_t beg, size_t merSize) {
+    size_t nb = 0;
+    size_t i = beg;
 
     while (i < correctedRead.length() and nb < merSize) {
         if (isUpperCase(correctedRead[i])) {
@@ -1425,12 +1465,12 @@ int getNextDst(std::string correctedRead, unsigned beg, unsigned merSize) {
 
 
 // Anchors without repeated k-mers
-std::vector<std::pair<std::string, std::string>> getAnchors(robin_hood::unordered_map<kmer, unsigned>& merCounts, std::string srcZone, std::string dstZone, unsigned merSize, unsigned nb) {
+std::vector<std::pair<std::string, std::string>> getAnchors(robin_hood::unordered_map<kmer, size_t>& merCounts, std::string srcZone, std::string dstZone, size_t merSize, size_t nb) {
     std::vector<std::pair<std::string, std::string>> res;
-    unsigned i;
+    size_t i;
 
-    robin_hood::unordered_map<std::string, std::vector<unsigned>> mersPosSrc = getKMersPos(srcZone, merSize);
-    robin_hood::unordered_map<std::string, std::vector<unsigned>> mersPosDst = getKMersPos(dstZone, merSize);
+    robin_hood::unordered_map<std::string, std::vector<size_t>> mersPosSrc = getKMersPos(srcZone, merSize);
+    robin_hood::unordered_map<std::string, std::vector<size_t>> mersPosDst = getKMersPos(dstZone, merSize);
 
     // Consider all k-mers of the src zone as potential anchors
     std::vector<std::string> candidatesSrc(srcZone.size() - merSize + 1);
@@ -1471,30 +1511,30 @@ std::vector<std::pair<std::string, std::string>> getAnchors(robin_hood::unordere
     return finalRes;
 }
 
-std::string polishCorrection(std::string correctedRead, robin_hood::unordered_map<kmer, unsigned>& merCounts, unsigned merSize, int solidThresh) {
+std::string polishCorrection(std::string correctedRead, robin_hood::unordered_map<kmer, size_t>& merCounts, size_t merSize, int solidThresh) {
     std::set<std::string> visited;
-    unsigned curBranches;
-    unsigned dist;
+    size_t curBranches;
+    size_t dist;
     std::string curExt;
     std::string correctedRegion;
-    unsigned maxSize;
-    unsigned maxBranches = 50;
+    size_t maxSize;
+    size_t maxBranches = 50;
     std::vector<std::pair<std::string, std::string>> corList;
     int zone = 3;
     int srcBeg, srcEnd, dstBeg, dstEnd;
-    unsigned tmpSrcBeg = 0, tmpSrcEnd = 0, tmpDstBeg = 0, tmpDstEnd = 0;
+    size_t tmpSrcBeg = 0, tmpSrcEnd = 0, tmpDstBeg = 0, tmpDstEnd = 0;
     std::string src, dst;
     std::pair<int, int> pos;
     std::vector<std::pair<std::string, std::string>> anchors;
-    unsigned anchorNb;
+    size_t anchorNb;
     std::string srcZone, dstZone;
-    robin_hood::unordered_map<std::string, std::vector<unsigned>> srcPos, dstPos;
+    robin_hood::unordered_map<std::string, std::vector<size_t>> srcPos, dstPos;
     std::string oldCorrectedRead;
     int b, l;
     std::string r, c;
 
     // Skip uncorrected head of the read
-    unsigned i = 0;
+    size_t i = 0;
     while (i < correctedRead.length() and !isUpperCase(correctedRead[i])) {
         i++;
     }
@@ -1585,9 +1625,9 @@ std::string polishCorrection(std::string correctedRead, robin_hood::unordered_ma
     return correctedRead;
 }
 
-int nbSolidMers(std::string seq, robin_hood::unordered_map<kmer, unsigned> merCounts, unsigned merSize, unsigned solidThresh) {
+int nbSolidMers(std::string seq, robin_hood::unordered_map<kmer, size_t> merCounts, size_t merSize, size_t solidThresh) {
     int nb = 0;
-    for (unsigned i = 0; i < seq.length() - merSize + 1; i++) {
+    for (size_t i = 0; i < seq.length() - merSize + 1; i++) {
         if (merCounts[str2num(seq.substr(i, merSize))] >= solidThresh) {
             nb++;
         }
@@ -1598,7 +1638,7 @@ int nbSolidMers(std::string seq, robin_hood::unordered_map<kmer, unsigned> merCo
 
 int nbUpperCase(std::string s) {
     int nb = 0;
-    for (unsigned i = 0; i < s.length(); i++) {
+    for (size_t i = 0; i < s.length(); i++) {
         if (isUpperCase(s[i])) {
             nb++;
         }
@@ -1611,7 +1651,7 @@ std::pair<int, int> getIndels(std::string cigar){
     int ins = 0;
     int del = 0;
     int current = 0;
-    for(unsigned i = 0; i < cigar.length(); i++){
+    for(size_t i = 0; i < cigar.length(); i++){
         if('0' <= cigar[i] && cigar[i] <= '9'){
             current = (current * 10) + (cigar[i] - '0');
         } else {
@@ -1627,32 +1667,32 @@ std::pair<int, int> getIndels(std::string cigar){
 
 }
 
-std::string alignConsensus(std::string sequence, std::vector<std::string>& consensuses, std::vector<robin_hood::unordered_map<kmer, unsigned>>& merCounts, std::vector<std::pair<unsigned, unsigned>>& pilesPos, std::vector<std::string>& templates, int startPos, unsigned windowSize, unsigned windowOverlap, unsigned solidThresh, unsigned merSize) {
+std::string alignConsensus(std::string sequence, std::vector<std::string>& consensuses, std::vector<robin_hood::unordered_map<kmer, size_t>>& merCounts, std::vector<std::pair<size_t, size_t>>& pilesPos, std::vector<std::string>& templates, int startPos, size_t windowSize, size_t windowOverlap, size_t solidThresh, size_t merSize) {
     StripedSmithWaterman::Aligner aligner;
     StripedSmithWaterman::Filter filter;
     StripedSmithWaterman::Alignment alignment;
     StripedSmithWaterman::Alignment subAlignment;
     int32_t maskLen = 15;
-    unsigned beg, end, oldEnd;
+    size_t beg, end, oldEnd;
     oldEnd = 0;
     std::string outSequence;
     outSequence = sequence;
     std::transform(outSequence.begin(), outSequence.end(), outSequence.begin(), ::tolower);
 
     std::string corWindow;
-    unsigned i = 0;
+    size_t i = 0;
     std::string tmpSequence, consUp;
     int curPos = startPos;
     int alPos;
     int sizeAl;
     std::string curCons, oldCons;
-    robin_hood::unordered_map<kmer, unsigned> oldMers;
-    robin_hood::unordered_map<kmer, unsigned> curMers;
-    unsigned overlap;
+    robin_hood::unordered_map<kmer, size_t> oldMers;
+    robin_hood::unordered_map<kmer, size_t> curMers;
+    size_t overlap;
     std::string seq1, seq2;
     int solidMersSeq1, solidMersSeq2;
     std::pair<int, int> indels;
-    unsigned ins, del;
+    size_t ins, del;
 
     for (i = 0; i < consensuses.size(); i++) {
         if (consensuses[i].length() < merSize) {
@@ -1723,7 +1763,7 @@ std::string alignConsensus(std::string sequence, std::vector<std::string>& conse
 }
 
 
-std::string weightConsensus(std::string& consensus, std::vector<std::string>& pile, robin_hood::unordered_map<kmer, unsigned>& merCounts, unsigned merSize, unsigned windowSize, unsigned solidThresh) {
+std::string weightConsensus(std::string& consensus, std::vector<std::string>& pile, robin_hood::unordered_map<kmer, size_t>& merCounts, size_t merSize, size_t windowSize, size_t solidThresh) {
     std::vector<std::string> splits;
     std::string curSplit;
 
@@ -1731,7 +1771,7 @@ std::string weightConsensus(std::string& consensus, std::vector<std::string>& pi
     std::string sequence = "";
     std::string curFct;
 
-    unsigned i = 0;
+    size_t i = 0;
     while (i < consensus.length() - merSize + 1) {
         curFct = consensus.substr(i, merSize);
         curFct = toUpperCase(curFct, 0, merSize);
@@ -1746,10 +1786,10 @@ std::string weightConsensus(std::string& consensus, std::vector<std::string>& pi
     return consensus;
 }
 
-std::pair<std::string, robin_hood::unordered_map<kmer, unsigned>> computeConsensusReadCorrection(std::vector<std::string> & piles, std::pair<unsigned, unsigned>& pilesPos, unsigned& minSupport, unsigned& merSize, unsigned& commonKMers, unsigned& minAnchors, unsigned& solidThresh, unsigned& windowSize, unsigned maxMSA, std::string path) {
+std::pair<std::string, robin_hood::unordered_map<kmer, size_t>> computeConsensusReadCorrection(std::vector<std::string> & piles, std::pair<size_t, size_t>& pilesPos, size_t& minSupport, size_t& merSize, size_t& commonKMers, size_t& minAnchors, size_t& solidThresh, size_t& windowSize, size_t maxMSA, std::string path) {
     int bmeanSup;
     bmeanSup = std::min((int) commonKMers, (int) piles.size() / 2);
-    std::pair<std::vector<std::vector<std::string>>, robin_hood::unordered_map<kmer, unsigned>> rOut = MSABMAAC(piles, merSize, bmeanSup, solidThresh, minAnchors, maxMSA, path);
+    std::pair<std::vector<std::vector<std::string>>, robin_hood::unordered_map<kmer, size_t>> rOut = MSABMAAC(piles, merSize, bmeanSup, solidThresh, minAnchors, maxMSA, path);
 
     if (rOut.first.size() == 0) {
         return std::make_pair(piles[0], rOut.second);
@@ -1771,13 +1811,13 @@ std::pair<std::string, robin_hood::unordered_map<kmer, unsigned>> computeConsens
 std::string consent_correction(std::string template_read, std::vector<Overlap> alignments) {
 
 
-    unsigned minSupport=0;
-    unsigned minAnchors=2;
-    unsigned solidThresh=2;
-    unsigned windowSize=500;
-    unsigned commonKMers=8;
-    unsigned maxMSA=158;
-    unsigned windowOverlap=50;
+    size_t minSupport=0;
+    size_t minAnchors=2;
+    size_t solidThresh=2;
+    size_t windowSize=500;
+    size_t commonKMers=8;
+    size_t maxMSA=158;
+    size_t windowOverlap=50;
     bool doTrimRead=true;
     std::string readId="current_read";
 
@@ -1785,7 +1825,7 @@ std::string consent_correction(std::string template_read, std::vector<Overlap> a
 
 
 
-    std::vector<std::pair<unsigned,unsigned >> pilesPos=getAlignmentWindowsPositions(template_read, alignments,minSupport, windowSize, windowOverlap);
+    std::vector<std::pair<size_t,size_t >> pilesPos=getAlignmentWindowsPositions(template_read, alignments,minSupport, windowSize, windowOverlap);
 
 
 
@@ -1794,12 +1834,12 @@ std::string consent_correction(std::string template_read, std::vector<Overlap> a
     //    std::cout << "[" << window.first << ", " << window.second << "]" << std::endl;
     //}
 
-    unsigned i = 0;
-    unsigned merSize=9;
+    size_t i = 0;
+    size_t merSize=9;
 
-    //std::pair<std::string , robin_hood::unordered_map<kmer, unsigned>> resCons;
+    //std::pair<std::string , robin_hood::unordered_map<kmer, size_t>> resCons;
     //std::vector<std::string> consensuses(pilesPos.size());
-    //std::vector<robin_hood::unordered_map<kmer, unsigned>> merCounts(pilesPos.size());
+    //std::vector<robin_hood::unordered_map<kmer, size_t>> merCounts(pilesPos.size());
     //std::vector<std::string> curPile;
     //std::vector<std::string> templates(pilesPos.size());
 
