@@ -1231,7 +1231,7 @@ unsigned* getCoverages(std::string template_read, std::vector<Overlap> alignment
     unsigned* coverages = (unsigned*) calloc(tplLen, sizeof(int));
     unsigned beg, end;
     unsigned i;
-    for (OverlapConsent ovlp : alignments) {
+    for (Overlap ovlp : alignments) {
         beg=ovlp.query_start;
         end=ovlp.query_end;
 
