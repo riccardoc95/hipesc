@@ -132,6 +132,21 @@ void trim_newline(string &str) {
 
 int main(int argc, char *argv[]) {
 
+    std::string fastq_file = "data/test.fastq";
+    std::string paf_file = "data/test.paf";
+
+    // Check for command-line arguments and override the default files if provided
+    if (argc > 1) {
+        fastq_file = argv[1];  // First argument is the FASTQ file
+    }
+    if (argc > 2) {
+        paf_file = argv[2];  // Second argument is the PAF file
+    }
+
+    // Display the file paths
+    std::cout << "FASTQ file: " << fastq_file << std::endl;
+    std::cout << "PAF file: " << paf_file << std::endl;
+
 
     // Initialize MPI
     int rank, size;
@@ -151,14 +166,14 @@ int main(int argc, char *argv[]) {
 
 
     // Open the FASTQ file
-    ifstream fastq("data/test.fastq");//input.fastq");
+    ifstream fastq(fastq_file);//input.fastq");
     if (!fastq.is_open()) {
         cerr << "Error opening FASTQ file!" << endl;
         return -1;
     }
 
     // Open the PAF file
-    ifstream paf("data/test.paf");//input.fastq");
+    ifstream paf(paf_file);//input.fastq");
     if (!paf.is_open()) {
         cerr << "Error opening PAF file!" << endl;
         return -1;
