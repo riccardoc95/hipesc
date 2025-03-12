@@ -19,7 +19,7 @@
 
 #include "correction.h"
 
-#include "spoa.hpp"
+#include "spoa/spoa.hpp"
 #include "ssw_cpp.h"
 
 typedef uint32_t kmer;
