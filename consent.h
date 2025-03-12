@@ -1247,7 +1247,7 @@ std::vector<unsigned> getCoverages(const std::string& template_read, const std::
 
 
 std::vector<std::pair<unsigned,unsigned >> getAlignmentWindowsPositions(std::string template_read, std::vector<Overlap> alignments, unsigned minSupport,  unsigned windowSize, int overlappingWindows) {
-    unsigned* coverages = getCoverages(template_read,alignments);
+    std::vector<unsigned> coverages = getCoverages(template_read,alignments);
     unsigned i;
     unsigned beg = 0;
     unsigned tplen=template_read.length();
@@ -1302,8 +1302,8 @@ std::vector<std::pair<unsigned,unsigned >> getAlignmentWindowsPositions(std::str
     }
 
     // delete [] coverages;
-    free(coverages);
-    coverages = nullptr;
+    //free(coverages);
+    //coverages = nullptr;
 
     return pilesPos;
 }
