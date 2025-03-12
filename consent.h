@@ -1861,13 +1861,13 @@ std::string consent_correction(std::string template_read, std::vector<Overlap> a
 
     if (doTrimRead) {
         correctedRead = trimRead(correctedRead, 1);
-        if (!dropRead(correctedRead)) {
-            std::cout<<correctedRead<<std::endl;
-        } else {
-            std::cout<<""<<std::endl;
-        }
-    } else {
-        std::cout<<correctedRead<<std::endl;
+        //if (!dropRead(correctedRead)) {
+        //    std::cout<<correctedRead<<std::endl;
+        //} else {
+        //    std::cout<<""<<std::endl;
+        //}
+    //} else {
+    //    std::cout<<correctedRead<<std::endl;
     }
 
     return correctedRead;
