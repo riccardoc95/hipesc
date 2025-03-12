@@ -3,6 +3,9 @@
 // mpic++ --std=c++17 -Xpreprocessor -fopenmp -I$(brew --prefix libomp)/include -L$(brew --prefix libomp)/lib -lomp -o openmp openmp.cpp -lz -lzstd -O2
 // mpic++ --std=c++17  -fopenmp -o openmp openmp.cpp -lz -lzstd -O2
 
+// g++ -std=c++17 -O2 -Wall -o my_program main2.cpp Complete-Striped-Smith-Waterman-Library/src/ssw_cpp.cpp -Ispoa/include -IComplete-Striped-Smith-Waterman-Library/src -Lspoa/build/lib -LComplete-Striped-Smith-Waterman-Library/src -lspoa -lComplete-Striped-Smith-Waterman-Library/src/ssw -pthread
+
+// mpic++ --std=c++17  -fopenmp -o openmp openmp.cpp -lz -lzstd -O2 lib/Striped-Smith-Waterman-Library/src/ssw_cpp.cpp -Ilib/spoa/include -Ilib/Striped-Smith-Waterman-Library/src -Llib/spoa/build/lib -Llib/Striped-Smith-Waterman-Library/src -lspoa -lssw -pthread
 
 #include <mpi.h>
 #include <omp.h>
