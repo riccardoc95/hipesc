@@ -1825,25 +1825,23 @@ std::string consent_correction(std::string template_read, std::vector<Overlap> a
 
 
 
-    std::vector<std::pair<unsigned,unsigned >> pilesPos=getAlignmentWindowsPositions(template_read, alignments,minSupport, windowSize, windowOverlap);
+    //std::vector<std::pair<unsigned,unsigned >> pilesPos=getAlignmentWindowsPositions(template_read, alignments,minSupport, windowSize, windowOverlap);
 
-//    if (pilesPos.size() == 0) {
-//        return std::make_pair(readId, "");
-//    }
 
-    std::cout << "Finestre di allineamento:" << std::endl;
-    for (const auto& window : pilesPos) {
-        std::cout << "[" << window.first << ", " << window.second << "]" << std::endl;
-    }
+
+    //std::cout << "Finestre di allineamento:" << std::endl;
+    //for (const auto& window : pilesPos) {
+    //    std::cout << "[" << window.first << ", " << window.second << "]" << std::endl;
+    //}
 
     unsigned i = 0;
     unsigned merSize=9;
 
-    std::pair<std::string , robin_hood::unordered_map<kmer, unsigned>> resCons;
-    std::vector<std::string> consensuses(pilesPos.size());
-    std::vector<robin_hood::unordered_map<kmer, unsigned>> merCounts(pilesPos.size());
-    std::vector<std::string> curPile;
-    std::vector<std::string> templates(pilesPos.size());
+    //std::pair<std::string , robin_hood::unordered_map<kmer, unsigned>> resCons;
+    //std::vector<std::string> consensuses(pilesPos.size());
+    //std::vector<robin_hood::unordered_map<kmer, unsigned>> merCounts(pilesPos.size());
+    //std::vector<std::string> curPile;
+    //std::vector<std::string> templates(pilesPos.size());
 
     //for (i = 0; i < pilesPos.size(); i++) {
     //    curPile = getAlignmentWindowsSequences(template_read,alignments, pilesPos[i].first, pilesPos[i].second, 9);
