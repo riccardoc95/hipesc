@@ -99,7 +99,7 @@ int main(int argc, char *argv[]) {
             size_t start_paf_line = rank * paf_lines_per_rank;
             size_t current_lines = 0;
 
-            std::string query_name, target_name, back_query_name;
+            std::string query_name, target_name, back_query_name, strand;
             size_t query_start, query_end, target_start, target_end;
             bool end_job = false;
 
@@ -116,7 +116,7 @@ int main(int argc, char *argv[]) {
                     break;
                 }
 
-                parse_paf_line(line, query_name, target_name, query_start, query_end, target_start, target_end);
+                parse_paf_line(line, query_name, target_name, query_start, query_end, target_start, target_end, strand);
                 if (back_query_name.empty()) {
                   back_query_name = query_name;
                 }
@@ -131,7 +131,7 @@ int main(int argc, char *argv[]) {
                   targets.clear();
                   end_job = true;
                 } else{
-                    targets.push_back({compress_zstd(target_name), query_start, query_end, target_start, target_end});
+                    targets.push_back({compress_zstd(target_name), query_start, query_end, target_start, target_end, strand});
                     end_job = false;
                 }
 
@@ -158,7 +158,7 @@ int main(int argc, char *argv[]) {
 
                     std::vector<Overlap> targets;
                     targets.clear();
-                    for (const auto&[target_name, query_start, query_end, target_start, target_end] : job.jobs) {
+                    for (const auto&[target_name, query_start, query_end, target_start, target_end, strand] : job.jobs) {
                         std::string target = target_name;
 
                         auto [fst, snd] = fastq_dict[target];
@@ -170,7 +170,8 @@ int main(int argc, char *argv[]) {
                             query_start,
                             query_end,
                             target_start,
-                            target_end});
+                            target_end,
+                            strand});
 
 
                     }
