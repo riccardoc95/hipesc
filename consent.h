@@ -1857,7 +1857,7 @@ std::string consent_correction(std::string template_read, std::vector<Overlap> a
         merCounts[i] = resCons.second;
     }
 
-    std::string correctedRead = alignConsensus(template_read, consensuses, merCounts, pilesPos, templates, pilesPos[0].first, windowSize, windowOverlap, solidThresh, merSize);
+    //std::string correctedRead = alignConsensus(template_read, consensuses, merCounts, pilesPos, templates, pilesPos[0].first, windowSize, windowOverlap, solidThresh, merSize);
 
     //if (doTrimRead) {
     //    correctedRead = trimRead(correctedRead, 1);
