@@ -15,6 +15,7 @@ struct Target {
     size_t query_end;
     size_t target_start;
     size_t target_end;
+    std::string strand;
 };
 
 struct Job {
