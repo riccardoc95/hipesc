@@ -1807,7 +1807,7 @@ std::pair<std::string, robin_hood::unordered_map<kmer, unsigned>> computeConsens
     return std::make_pair(corTpl, merCounts);
 }
 
-std::string consent_correction(std::string& template_read, std::vector<Overlap>& alignments) {
+std::string consent_correction(std::string template_read, std::vector<Overlap> alignments) {
 
 
     unsigned minSupport=0;
