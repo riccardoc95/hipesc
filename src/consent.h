@@ -1341,19 +1341,19 @@ std::vector<std::string> getAlignmentWindowsSequences(std::string template_read,
             if (qBeg < overlap.query_start and overlap.query_end < end) {
                 shift = 0;
                 tBeg = std::max(0, (int) overlap.target_start - ((int) overlap.query_start - (int) qBeg));
-                tEnd = std::min((int) overlap.sequence.length() - 1, (int) overlap.target_end + ((int) end - (int) overlap.query_end));
+                tEnd = std::min((int) overlap.target.length() - 1, (int) overlap.target_end + ((int) end - (int) overlap.query_end));
                 length = tEnd - tBeg + 1;
             } else if (qBeg < overlap.query_start) {
                 shift = 0;
                 tBeg = std::max(0, (int) overlap.target_start - ((int) overlap.query_start - (int) qBeg));
-                length = std::min((int) length, std::min((int) overlap.sequence.length() - 1, (int) tBeg + (int) length - 1) - (int) tBeg + 1);
+                length = std::min((int) length, std::min((int) overlap.target.length() - 1, (int) tBeg + (int) length - 1) - (int) tBeg + 1);
             } else if (overlap.query_end < end) {
-                tEnd = std::min((int) overlap.sequence.length() - 1, (int) overlap.target_end + ((int) end - (int) overlap.query_end));
+                tEnd = std::min((int) overlap.target.length() - 1, (int) overlap.target_end + ((int) end - (int) overlap.query_end));
                 length = std::min((int) length, (int) tEnd - std::max(0, (int) tEnd - (int) length + 1) + 1);
             }
 
 
-            tmpSeq = overlap.sequence.substr(tBeg, tEnd - tBeg + 1);
+            tmpSeq = overlap.target.substr(tBeg, tEnd - tBeg + 1);
 
             if (overlap.strand=="-") {
                 tmpSeq = rev_comp::run(tmpSeq);
