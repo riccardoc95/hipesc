@@ -1845,17 +1845,17 @@ std::string consent_correction(std::string template_read, std::vector<Overlap> a
     std::vector<std::string> curPile;
     std::vector<std::string> templates(pilesPos.size());
 
-    for (i = 0; i < pilesPos.size(); i++) {
-        curPile = getAlignmentWindowsSequences(template_read,alignments, pilesPos[i].first, pilesPos[i].second, 9);
-        templates[i] = curPile[0];
-        resCons = computeConsensusReadCorrection(curPile, pilesPos[i], minSupport, merSize, commonKMers, minAnchors, solidThresh, windowSize, maxMSA,"tmp");
-        if (resCons.first.length() < merSize) {
-            consensuses[i] = resCons.first;
-        } else {
-            consensuses[i] = resCons.first;
-        }
-        merCounts[i] = resCons.second;
-    }
+    //for (i = 0; i < pilesPos.size(); i++) {
+    //    curPile = getAlignmentWindowsSequences(template_read,alignments, pilesPos[i].first, pilesPos[i].second, 9);
+    //    templates[i] = curPile[0];
+    //    resCons = computeConsensusReadCorrection(curPile, pilesPos[i], minSupport, merSize, commonKMers, minAnchors, solidThresh, windowSize, maxMSA,"tmp");
+    //    if (resCons.first.length() < merSize) {
+    //        consensuses[i] = resCons.first;
+    //    } else {
+    //        consensuses[i] = resCons.first;
+    //    }
+    //    merCounts[i] = resCons.second;
+    //}
 
     //std::string correctedRead = alignConsensus(template_read, consensuses, merCounts, pilesPos, templates, pilesPos[0].first, windowSize, windowOverlap, solidThresh, merSize);
 
