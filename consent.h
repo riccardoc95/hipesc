@@ -1825,7 +1825,7 @@ std::string consent_correction(std::string template_read, std::vector<Overlap> a
 
 
 
-    //std::vector<std::pair<unsigned,unsigned >> pilesPos=getAlignmentWindowsPositions(template_read, alignments,minSupport, windowSize, windowOverlap);
+    std::vector<std::pair<unsigned,unsigned >> pilesPos=getAlignmentWindowsPositions(template_read, alignments,minSupport, windowSize, windowOverlap);
 
 
 
