@@ -1257,51 +1257,11 @@ std::vector<std::pair<unsigned,unsigned >> getAlignmentWindowsPositions(std::str
     end = 0;
     i = 0;
 
-    while (i < tplen) {
-        if (curLen >= windowSize) {
-            pilesPos.push_back(std::make_pair(beg, beg + curLen - 1));
-            if (overlappingWindows) {
-                i = i - overlappingWindows;
-            }
-            beg = i;
-            curLen = 0;
-        }
-        if (coverages[i] < minSupport) {
-            curLen = 0;
-            i++;
-            beg = i;
-        } else {
-            curLen++;
-            i++;
-        }
-    }
 
-    // Special case for the last window
-    int pushed = 0;
-    beg = 0;
-    end = tplen - 1;
-    curLen = 0;
-    i = tplen - 1;
-    while (i > 0 and !pushed) {
-        if (curLen >= windowSize) {
-            pilesPos.push_back(std::make_pair(end - curLen + 1, end));
-            pushed = 1;
-            end = i;
-            curLen = 0;
-        }
-        if (coverages[i] < minSupport) {
-            curLen = 0;
-            i--;
-            end = i;
-        } else {
-            curLen++;
-            i--;
-        }
-    }
 
     // delete [] coverages;
-    //free(coverages);
-    //coverages = NULL;
+    free(coverages);
+    coverages = nullptr;
 
     return pilesPos;
 }
