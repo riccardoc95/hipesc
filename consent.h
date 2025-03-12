@@ -1245,7 +1245,7 @@ unsigned* getCoverages(std::string template_read, std::vector<Overlap> alignment
 
 
 std::vector<std::pair<unsigned,unsigned >> getAlignmentWindowsPositions(std::string template_read, std::vector<Overlap> alignments, unsigned minSupport,  unsigned windowSize, int overlappingWindows) {
-    unsigned* coverages = getCoverages(template_read,alignments);
+    //unsigned* coverages = getCoverages(template_read,alignments);
     unsigned i;
     unsigned beg = 0;
     unsigned tplen=template_read.length();
