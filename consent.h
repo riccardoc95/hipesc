@@ -1231,28 +1231,70 @@ unsigned* getCoverages(std::string template_read, std::vector<Overlap> alignment
     unsigned* coverages = (unsigned*) calloc(tplLen, sizeof(int));
     unsigned beg, end;
     unsigned i;
-    for (Overlap ovlp : alignments) {
-        beg=ovlp.query_start;
-        end=ovlp.query_end;
 
-        for(i=beg;i<=end;i++){
-            coverages[i]++;
-        }
-    }
 
     return coverages;
 }
 
 
 std::vector<std::pair<unsigned,unsigned >> getAlignmentWindowsPositions(std::string template_read, std::vector<Overlap> alignments, unsigned minSupport,  unsigned windowSize, int overlappingWindows) {
-    //unsigned* coverages = getCoverages(template_read,alignments);
+    unsigned* coverages = getCoverages(template_read,alignments);
     unsigned i;
     unsigned beg = 0;
     unsigned tplen=template_read.length();
     unsigned end = tplen - 1;
 
     std::vector<std::pair<unsigned, unsigned>> pilesPos;
+    unsigned curLen = 0;
+    beg = 0;
+    end = 0;
+    i = 0;
 
+    while (i < tplen) {
+        if (curLen >= windowSize) {
+            pilesPos.push_back(std::make_pair(beg, beg + curLen - 1));
+            if (overlappingWindows) {
+                i = i - overlappingWindows;
+            }
+            beg = i;
+            curLen = 0;
+        }
+        if (coverages[i] < minSupport) {
+            curLen = 0;
+            i++;
+            beg = i;
+        } else {
+            curLen++;
+            i++;
+        }
+    }
+
+    // Special case for the last window
+    int pushed = 0;
+    beg = 0;
+    end = tplen - 1;
+    curLen = 0;
+    i = tplen - 1;
+    while (i > 0 and !pushed) {
+        if (curLen >= windowSize) {
+            pilesPos.push_back(std::make_pair(end - curLen + 1, end));
+            pushed = 1;
+            end = i;
+            curLen = 0;
+        }
+        if (coverages[i] < minSupport) {
+            curLen = 0;
+            i--;
+            end = i;
+        } else {
+            curLen++;
+            i--;
+        }
+    }
+
+    // delete [] coverages;
+    free(coverages);
+    coverages = nullptr;
 
     return pilesPos;
 }
