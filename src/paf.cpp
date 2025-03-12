@@ -5,7 +5,7 @@
 #include "paf.h"
 
 
-void parse_paf_line(std::string line_str, std::string& query_name, std::string& target_name, size_t& query_start, size_t& query_end, size_t& target_start, size_t& target_end) {
+void parse_paf_line(std::string line_str, std::string& query_name, std::string& target_name, size_t& query_start, size_t& query_end, size_t& target_start, size_t& target_end, std::string& strand) {
     const size_t pos1 = line_str.find('\t');
     const size_t pos2 = line_str.find('\t', pos1 + 1);
     const size_t pos3 = line_str.find('\t', pos2 + 1);
