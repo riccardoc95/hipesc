@@ -14,6 +14,7 @@ struct Overlap {
     size_t query_end;
     size_t target_start;
     size_t target_end;
+    std::string strand;
 };
 
 std::string correction(std::string& query, std::vector<Overlap>& targets, const std::string& method);
