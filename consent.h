@@ -1869,5 +1869,5 @@ std::string consent_correction(std::string template_read, std::vector<Overlap> a
     //    std::cout<<correctedRead<<std::endl;
     }
 
-    return correctedRead;
+    return "correctedRead";
 }
