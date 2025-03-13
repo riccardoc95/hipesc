@@ -94,7 +94,7 @@ void parse_line(string line_str, std::string& query_name, std::string& target_na
     query_end = std::stoull(line_str.substr(pos3 + 1, pos4 - pos3 - 1));
     target_start = std::stoull(line_str.substr(pos7 + 1, pos8 - pos7 - 1));
     target_end = std::stoull(line_str.substr(pos8 + 1, pos9 - pos8 - 1));
-    strand = "-";
+    strand = line_str.substr(pos4 + 1, pos5 - pos4 - 1);
 }
 
 
@@ -309,6 +309,8 @@ int main(int argc, char *argv[]) {
                     query = fst;
                     size_t query_length = snd;
                     query = decompress_zstd(query, query_length);
+
+                    std::cout << decompress_zstd(job.query_name, 128) << std::endl;
 
                     //cout << query << endl;
 
