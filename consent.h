@@ -1813,7 +1813,7 @@ std::pair<std::string, robin_hood::unordered_map<kmer, unsigned>> computeConsens
 std::string consent_correction(std::string template_read, std::vector<Overlap> alignments) {
 
 
-    unsigned minSupport=0;
+    unsigned minSupport=4;
     unsigned minAnchors=2;
     unsigned solidThresh=2;
     unsigned windowSize=500;
