@@ -1862,18 +1862,16 @@ std::string consent_correction(std::string template_read, std::vector<Overlap> a
     }else {
         std::string correctedRead = alignConsensus(template_read, consensuses, merCounts, pilesPos, templates, pilesPos[0].first, windowSize, windowOverlap, solidThresh, merSize);
 
-        //if (doTrimRead) {
-        //    correctedRead = trimRead(correctedRead, 1);
-        //if (!dropRead(correctedRead)) {
-        //    std::cout<<correctedRead<<std::endl;
-        //} else {
-        //    std::cout<<""<<std::endl;
-        //}
-        //} else {
-        //    std::cout<<correctedRead<<std::endl;
-        //}
-
-        return "correctedRead";
+        if (doTrimRead) {
+            correctedRead = trimRead(correctedRead, 1);
+            if (!dropRead(correctedRead)) {
+                return correctedRead;
+            } else {
+                return "";
+            }
+        } else {
+            return correctedRead;
+        }
     }
 
 
