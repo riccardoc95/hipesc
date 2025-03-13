@@ -1669,7 +1669,7 @@ std::pair<int, int> getIndels(std::string cigar){
 
 }
 
-std::string alignConsensus(std::string rawRead, std::string sequence, std::vector<std::string>& consensuses, std::vector<robin_hood::unordered_map<kmer, unsigned>>& merCounts, std::vector<std::pair<unsigned, unsigned>>& pilesPos, std::vector<std::string>& templates, int startPos, unsigned windowSize, unsigned windowOverlap, unsigned solidThresh, unsigned merSize) {
+std::string alignConsensus(std::string sequence, std::vector<std::string>& consensuses, std::vector<robin_hood::unordered_map<kmer, unsigned>>& merCounts, std::vector<std::pair<unsigned, unsigned>>& pilesPos, std::vector<std::string>& templates, int startPos, unsigned windowSize, unsigned windowOverlap, unsigned solidThresh, unsigned merSize) {
 	StripedSmithWaterman::Aligner aligner;
 	StripedSmithWaterman::Filter filter;
 	StripedSmithWaterman::Alignment alignment;
@@ -1856,7 +1856,7 @@ std::string consent_correction(std::string template_read, std::vector<Overlap> a
     }
 
     std::cout << "STEP3" << std::endl;
-    //std::string correctedRead = alignConsensus(template_read, consensuses, merCounts, pilesPos, templates, pilesPos[0].first, windowSize, windowOverlap, solidThresh, merSize);
+    std::string correctedRead = alignConsensus(template_read, consensuses, merCounts, pilesPos, templates, pilesPos[0].first, windowSize, windowOverlap, solidThresh, merSize);
 
     //if (doTrimRead) {
     //    correctedRead = trimRead(correctedRead, 1);
