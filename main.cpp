@@ -307,9 +307,9 @@ int main(int argc, char *argv[]) {
                     omp_unset_lock(&lock);
 
                     string query = job.query_name;
-                    pair<string, size_t> query_size = fastq_dict[query];
-                    query = query_size.first;
-                    size_t query_length = query_size.second;
+                    auto [fst, snd] = fastq_dict[query];
+                    query = fst;
+                    size_t query_length = snd;
                     query = decompress_zstd(query, query_length);
 
                     //cout << query << endl;
@@ -321,9 +321,9 @@ int main(int argc, char *argv[]) {
                     for (const auto& target_list : job.jobs) {
                         string target = target_list.target_name;
 
-                        pair<string, size_t> target_size = fastq_dict[target];
-                        target = target_size.first;
-                        size_t target_length = target_size.second;
+                        auto [fst, snd] = fastq_dict[target];
+                        target = fst;
+                        size_t target_length = snd;
                         target = decompress_zstd(target, target_length);
                         //cout << target << " TARGET"<< endl;
                         //cout << query.size() << " " << target.size() << " " <<target_list.query_start << " " << target_list.query_end << " " << target_list.target_start << " " << target_list.target_end << endl;
