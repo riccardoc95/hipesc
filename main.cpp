@@ -240,14 +240,14 @@ int main(int argc, char *argv[]) {
         // Synchronize threads to ensure reading is done before accessing the map
         #pragma omp barrier
 
+        std::ofstream output_file("output_rank_" + std::to_string(rank) + ".txt");
+        if (!output_file) {
+            std::cerr << "Errore nell'apertura del file di output per il rank " << rank << std::endl;
+            MPI_Abort(MPI_COMM_WORLD, 1);
+        }
+
         // Other threads can now read from the map (no modification, just reading)
         if (omp_get_thread_num() == 0) {
-            std::ofstream output_file("output_rank_" + std::to_string(rank) + ".fasta");
-            if (!output_file) {
-                std::cerr << "Errore nell'apertura del file di output per il rank " << rank << std::endl;
-                MPI_Abort(MPI_COMM_WORLD, 1);
-            }
-
             d = datetime();
             std::cout << d << " - READ PAF & CREATE/PROCESS JOBS, Rank: " << rank << std::endl;
 
