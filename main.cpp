@@ -94,6 +94,7 @@ void parse_line(string line_str, std::string& query_name, std::string& target_na
     query_end = std::stoull(line_str.substr(pos3 + 1, pos4 - pos3 - 1));
     target_start = std::stoull(line_str.substr(pos7 + 1, pos8 - pos7 - 1));
     target_end = std::stoull(line_str.substr(pos8 + 1, pos9 - pos8 - 1));
+    strand = "-";
 }
 
 
