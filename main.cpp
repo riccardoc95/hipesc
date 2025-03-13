@@ -328,11 +328,11 @@ int main(int argc, char *argv[]) {
                         overlaps.push_back({target, target_list.query_start, target_list.query_end, target_list.target_start, target_list.target_end, target_list.strand});
                     }
 
-                    d = datetime();
-                    std::cout << d << " - PRE_CORRECTION, Rank: " << rank << std::endl;
-                    //consent_correction(query, overlaps);
-                    d = datetime();
-                    std::cout << d << " - POST_CORRECTION, Rank: " << rank << std::endl;
+                    //d = datetime();
+                    //std::cout << d << " - PRE_CORRECTION, Rank: " << rank << std::endl;
+                    consent_correction(query, overlaps);
+                    //d = datetime();
+                    //std::cout << d << " - POST_CORRECTION, Rank: " << rank << std::endl;
 
 
                 } else if (done_reading) {
