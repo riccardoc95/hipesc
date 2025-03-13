@@ -297,7 +297,6 @@ void clean_suspcious_reads(kmer2localisation& kmer_index, uint read_number,doubl
             }
         }
     }
-    //~ cout<<"goo"<<endl;
     auto it = kmer_index.begin();
     while(it != kmer_index.end()){
         for(uint32_t i(0);i<it->second.size();++i){
@@ -1810,8 +1809,7 @@ std::pair<std::string, robin_hood::unordered_map<kmer, unsigned>> computeConsens
     return std::make_pair(corTpl, merCounts);
 }
 
-std::string consent_correction(std::string template_read, std::vector<Overlap> alignments) {
-
+std::string correction(std::string template_read, std::vector<Overlap> alignments) {
 
     unsigned minSupport=4;
     unsigned minAnchors=2;
@@ -1823,16 +1821,7 @@ std::string consent_correction(std::string template_read, std::vector<Overlap> a
     bool doTrimRead=true;
     std::string readId="current_read";
 
-    std::cout << "STEP1" << std::endl;
-
     std::vector<std::pair<unsigned,unsigned >> pilesPos=getAlignmentWindowsPositions(template_read, alignments,minSupport, windowSize, windowOverlap);
-
-    std::cout << "STEP2" << std::endl;
-
-    //std::cout << "Finestre di allineamento:" << std::endl;
-    //for (const auto& window : pilesPos) {
-    //    std::cout << "[" << window.first << ", " << window.second << "]" << std::endl;
-    //}
 
     unsigned i = 0;
     unsigned merSize=9;
@@ -1854,8 +1843,6 @@ std::string consent_correction(std::string template_read, std::vector<Overlap> a
         }
         merCounts[i] = resCons.second;
     }
-
-    std::cout << "STEP3" << std::endl;
 
     if (pilesPos.size() == 0) {
         return  "";

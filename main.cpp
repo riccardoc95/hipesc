@@ -310,10 +310,6 @@ int main(int argc, char *argv[]) {
                     size_t query_length = snd;
                     query = decompress_zstd(query, query_length);
 
-                    std::cout << decompress_zstd(job.query_name, 128) << std::endl;
-
-                    //cout << query << endl;
-
 
                     vector<Overlap> overlaps;
                     overlaps.clear();
@@ -330,12 +326,10 @@ int main(int argc, char *argv[]) {
                         overlaps.push_back({target, target_list.query_start, target_list.query_end, target_list.target_start, target_list.target_end, target_list.strand});
                     }
 
-                    //d = datetime();
-                    //std::cout << d << " - PRE_CORRECTION, Rank: " << rank << std::endl;
-                    consent_correction(query, overlaps);
-                    //d = datetime();
-                    //std::cout << d << " - POST_CORRECTION, Rank: " << rank << std::endl;
+                    std::string query_correction = correction(query, overlaps);
+                    std::string query_name = decompress_zstd(job.query_name, 128);
 
+                    std::cout << "@" << query_name << "\n" << query_correction << std::endl;
 
                 } else if (done_reading) {
                     omp_unset_lock(&lock);
