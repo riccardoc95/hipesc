@@ -1823,13 +1823,11 @@ std::string consent_correction(std::string template_read, std::vector<Overlap> a
     bool doTrimRead=true;
     std::string readId="current_read";
 
-
-
-
+    std::cout << "STEP1" << std::endl;
 
     std::vector<std::pair<unsigned,unsigned >> pilesPos=getAlignmentWindowsPositions(template_read, alignments,minSupport, windowSize, windowOverlap);
 
-
+    std::cout << "STEP2" << std::endl;
 
     //std::cout << "Finestre di allineamento:" << std::endl;
     //for (const auto& window : pilesPos) {
@@ -1857,6 +1855,7 @@ std::string consent_correction(std::string template_read, std::vector<Overlap> a
         merCounts[i] = resCons.second;
     }
 
+    std::cout << "STEP3" << std::endl;
     std::string correctedRead = alignConsensus(template_read, consensuses, merCounts, pilesPos, templates, pilesPos[0].first, windowSize, windowOverlap, solidThresh, merSize);
 
     if (doTrimRead) {

@@ -330,7 +330,7 @@ int main(int argc, char *argv[]) {
 
                     //d = datetime();
                     //std::cout << d << " - PRE_CORRECTION, Rank: " << rank << std::endl;
-                    //consent_correction(query, overlaps);
+                    consent_correction(query, overlaps);
                     //d = datetime();
                     //std::cout << d << " - POST_CORRECTION, Rank: " << rank << std::endl;
 
