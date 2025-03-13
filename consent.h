@@ -1847,12 +1847,12 @@ std::string consent_correction(std::string template_read, std::vector<Overlap> a
         curPile = getAlignmentWindowsSequences(template_read,alignments, pilesPos[i].first, pilesPos[i].second, 9);
         templates[i] = curPile[0];
         resCons = computeConsensusReadCorrection(curPile, pilesPos[i], minSupport, merSize, commonKMers, minAnchors, solidThresh, windowSize, maxMSA,"tmp");
-        //if (resCons.first.length() < merSize) {
-        //    consensuses[i] = resCons.first;
-        //} else {
-        //    consensuses[i] = resCons.first;
-        //}
-        //merCounts[i] = resCons.second;
+        if (resCons.first.length() < merSize) {
+            consensuses[i] = resCons.first;
+        } else {
+            consensuses[i] = resCons.first;
+        }
+        merCounts[i] = resCons.second;
     }
 
     std::cout << "STEP3" << std::endl;
