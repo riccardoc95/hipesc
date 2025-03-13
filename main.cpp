@@ -242,6 +242,12 @@ int main(int argc, char *argv[]) {
 
         // Other threads can now read from the map (no modification, just reading)
         if (omp_get_thread_num() == 0) {
+            std::ofstream output_file("output_rank_" + std::to_string(rank) + ".fasta");
+            if (!output_file) {
+                std::cerr << "Errore nell'apertura del file di output per il rank " << rank << std::endl;
+                MPI_Abort(MPI_COMM_WORLD, 1);
+            }
+
             d = datetime();
             std::cout << d << " - READ PAF & CREATE/PROCESS JOBS, Rank: " << rank << std::endl;
 
@@ -329,7 +335,7 @@ int main(int argc, char *argv[]) {
                     std::string query_correction = correction(query, overlaps);
                     std::string query_name = decompress_zstd(job.query_name, 128);
 
-                    std::cout << "@" << query_name << "\n" << query_correction << std::endl;
+                    output_file << "@" << query_name << "\n" << query_correction << std::endl;
 
                 } else if (done_reading) {
                     omp_unset_lock(&lock);
