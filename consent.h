@@ -1856,7 +1856,7 @@ std::string consent_correction(std::string template_read, std::vector<Overlap> a
     }
 
     std::cout << "STEP3" << std::endl;
-    //std::string correctedRead = alignConsensus(template_read, consensuses, merCounts, pilesPos, templates, pilesPos[0].first, windowSize, windowOverlap, solidThresh, merSize);
+    std::string correctedRead = alignConsensus(template_read, consensuses, merCounts, pilesPos, templates, pilesPos[0].first, windowSize, windowOverlap, solidThresh, merSize);
 
     //if (doTrimRead) {
     //    correctedRead = trimRead(correctedRead, 1);
