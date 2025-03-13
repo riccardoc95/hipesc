@@ -240,7 +240,7 @@ int main(int argc, char *argv[]) {
         // Synchronize threads to ensure reading is done before accessing the map
         #pragma omp barrier
 
-        std::ofstream output_file("output_rank_" + std::to_string(rank) + ".txt");
+        std::ofstream output_file("correction_by_rank_" + std::to_string(rank) + ".fasta");
         if (!output_file) {
             std::cerr << "Errore nell'apertura del file di output per il rank " << rank << std::endl;
             MPI_Abort(MPI_COMM_WORLD, 1);
