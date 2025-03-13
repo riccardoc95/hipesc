@@ -277,8 +277,6 @@ int main(int argc, char *argv[]) {
                   back_query_name = query_name;
                 }
                 if (query_name != back_query_name || line.empty()) {
-
-
                   omp_set_lock(&lock);
                   jobs.push_back({compress_zstd(back_query_name), targets});
                   omp_unset_lock(&lock);
@@ -307,7 +305,7 @@ int main(int argc, char *argv[]) {
                     omp_unset_lock(&lock);
 
                     string query = job.query_name;
-                    auto [fst, snd] = fastq_dict[query];
+                    auto [fst, snd] = fastq_dict.at(query);
                     query = fst;
                     size_t query_length = snd;
                     query = decompress_zstd(query, query_length);
