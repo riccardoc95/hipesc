@@ -6,7 +6,7 @@ Developed to address the limitations of slow correction processes in genomic stu
 
 ---
 
-## 🚀 Features
+## Features
 
 - **Distributed parallelization** using MPI across compute nodes.
 - **Intra-node multithreading** using OpenMP.
@@ -16,13 +16,13 @@ Developed to address the limitations of slow correction processes in genomic stu
 
 ---
 
-## 🧬 Use Case
+## Use Case
 
 Using real datasets (like NA12878 from the Nanopore WGS Consortium), it significantly reduced runtime, scaling efficiently across multiple nodes.
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 - `main.cpp` – Entry point for the HyperC workflow.
 - `CMakeLists.txt` – Build configuration for the project.
@@ -36,7 +36,7 @@ Using real datasets (like NA12878 from the Nanopore WGS Consortium), it signific
 
 ---
 
-## 🛠️ Installation
+## Installation
 
 ### Prerequisites
 
@@ -59,7 +59,7 @@ Or, for building and running:
 
 ---
 
-## 🧪 Running the Pipeline
+## Running the Pipeline
 
 To run the pipeline, you need:
 
