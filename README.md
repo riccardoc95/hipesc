@@ -45,11 +45,19 @@ Using real datasets (like NA12878 from the Nanopore WGS Consortium), it signific
 - CMake ≥ 3.10
 - Zstandard (`libzstd`)
 
+### Clone the Repository
+
+Make sure to clone the repository **with submodules** to include required dependencies:
+
+```bash
+git clone --recurse-submodules https://github.com/riccardoc95/hipesc.git
+```
+
 ### Build
 
 ```bash
 ./compile.sh
-````
+```
 
 Or, for building and running:
 
