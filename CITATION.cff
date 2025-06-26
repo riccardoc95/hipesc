@@ -11,8 +11,6 @@ authors:
   - family-names: Brutti
     given-names: Pierpaolo
 date-released: 2025-08-01
-abstract: 
-> Third-Generation Sequencing (TGS) technologies have enabled the extraction of longer nucleotide sequences than NGS technologies, allowing for a deeper understanding of genome structure. Despite becoming pivotal for untangling genetic complexity, such long reads are prone to high sequencing error rates (ranging from 10% to 30%), making their correction a practical challenge in many computational genomics pipelines.
 conference: "Euro-Par 2024: Parallel Processing Workshops"
 publisher: "Springer Nature Switzerland"
 isbn: "978-3-031-90203-1"
