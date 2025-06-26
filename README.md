@@ -106,5 +106,5 @@ HyperC will handle all job distribution and parallelization transparently.
 
 If you use HyperC in your research, please cite:
 
-> Di Rocco, L., Ferraro Petrillo, U., Ceccaroni, R., & Brutti, P. (202*). *A Scalable Distributed Workflow for Accelerating Long Reads Self-Correction*.
+> Ceccaroni, R., Di Rocco, L., Ferraro Petrillo, U., & Brutti, P. (2025). A Distributed Workflow for Long Reads Self-correction. In S. Caino-Lores, D. Zeinalipour, T. D. Doudali, D. E. Singh, G. E. M. Garzón, L. Sousa, … S. Neuwirth (Eds.), Euro-Par 2024: Parallel Processing Workshops (pp. 105–116). Cham: Springer Nature Switzerland.
 
