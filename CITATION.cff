@@ -1,30 +1,22 @@
-@InProceedings{10.1007/978-3-031-90203-1_10,
-author="Ceccaroni, Riccardo
-and Di Rocco, Lorenzo
-and Ferraro Petrillo, Umberto
-and Brutti, Pierpaolo",
-editor="Caino-Lores, Silvina
-and Zeinalipour, Demetris
-and Doudali, Thaleia Dimitra
-and Singh, David E.
-and Garz{\'o}n, Gracia Ester Mart{\'i}n
-and Sousa, Leonel
-and Andrade, Diego
-and Cucinotta, Tommaso
-and D'Ambrosio, Donato
-and Diehl, Patrick
-and Dolz, Manuel F.
-and Jukan, Admela
-and Montella, Raffaele
-and Nardelli, Matteo
-and Garcia-Gasulla, Marta
-and Neuwirth, Sarah",
-title="A Distributed Workflow for Long Reads Self-correction",
-booktitle="Euro-Par 2024: Parallel Processing Workshops",
-year="2025",
-publisher="Springer Nature Switzerland",
-address="Cham",
-pages="105--116",
-abstract="Third-Generation Sequencing (TGS) technologies have enabled the extraction of longer nucleotide sequences than NGS technologies, allowing for a deeper understanding of genome structure. Despite becoming pivotal for untangling genetic complexity, such long reads are prone to high sequencing error rates (ranging from 10{\$}{\$}{\backslash}{\%}{\$}{\$}{\%}to 30{\$}{\$}{\backslash}{\%}{\$}{\$}{\%}), making their correction a practical challenge in many computational genomics pipelines.",
-isbn="978-3-031-90203-1"
-}
+cff-version: 1.2.0
+message: "If you use this software, please cite the following paper:"
+title: "A Distributed Workflow for Long Reads Self-correction"
+authors:
+  - family-names: Ceccaroni
+    given-names: Riccardo
+  - family-names: Di Rocco
+    given-names: Lorenzo
+  - family-names: Ferraro Petrillo
+    given-names: Umberto
+  - family-names: Brutti
+    given-names: Pierpaolo
+date-released: 2025-08-01
+abstract: >
+  Third-Generation Sequencing (TGS) technologies have enabled the extraction of longer nucleotide sequences than NGS technologies, allowing for a deeper understanding of genome structure. Despite becoming pivotal for untangling genetic complexity, such long reads are prone to high sequencing error rates (ranging from 10% to 30%), making their correction a practical challenge in many computational genomics pipelines.
+conference: "Euro-Par 2024: Parallel Processing Workshops"
+publisher: "Springer Nature Switzerland"
+isbn: "978-3-031-90203-1"
+pages: "105-116"
+address: "Cham"
+type: conference-paper
+url: "https://doi.org/10.1007/978-3-031-90203-1_10"
