@@ -11,10 +11,4 @@ authors:
   - family-names: Brutti
     given-names: Pierpaolo
 date-released: 2025-08-01
-conference: "Euro-Par 2024: Parallel Processing Workshops"
-publisher: "Springer Nature Switzerland"
-isbn: "978-3-031-90203-1"
-pages: "105-116"
-address: "Cham"
-type: conference-paper
-url: "https://doi.org/10.1007/978-3-031-90203-1_10"
+doi: "https://doi.org/10.1007/978-3-031-90203-1_10"
